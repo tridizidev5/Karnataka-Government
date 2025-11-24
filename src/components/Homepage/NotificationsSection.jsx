@@ -9,11 +9,14 @@ const rows = [
   { title: "Lorem Ipsum Content Is Dummy Text", date: "10/03/2019" },
 ];
 
-const NotificationsSection = () => {
+const NotificationsSection = ({ lang }) => {
   return (
     <section className="notifications">
       <div className="container">
-<h3 className="section-title">ಅಧಿಸೂಚನೆಗಳು</h3>
+
+        <h3 className="section-title">
+          {lang === "kn" ? "ಅಧಿಸೂಚನೆಗಳು" : "Notifications"}
+        </h3>
 
         <div className="notifications__table-wrapper">
           <table className="notifications__table">
@@ -26,17 +29,19 @@ const NotificationsSection = () => {
 
             <thead>
               <tr>
-                <th>Latest</th>
+                <th>{lang === "kn" ? "ಇತ್ತೀಚಿನವು" : "Latest"}</th>
                 <th></th>
                 <th></th>
-                <th>Date</th>
+                <th>{lang === "kn" ? "ದಿನಾಂಕ" : "Date"}</th>
               </tr>
             </thead>
 
             <tbody>
               {rows.map((row, idx) => (
                 <tr key={idx}>
-                  <td className="notifications__title">{row.title}</td>
+                  <td className="notifications__title">
+                    {lang === "kn" ? "ಲೋರಮ್ ಇಪ್ಸಮ್ ವಿಷಯ ಡಮ್ಮಿ ಪಠ್ಯವಾಗಿದೆ" : row.title}
+                  </td>
                   <td></td>
                   <td></td>
                   <td className="notifications__date">{row.date}</td>
@@ -45,6 +50,7 @@ const NotificationsSection = () => {
             </tbody>
           </table>
         </div>
+
       </div>
     </section>
   );

@@ -8,6 +8,22 @@
   margin: 0 auto;
 }
 
+.header-top__lang-switch {
+  margin-left: 12px;
+}
+
+.lang-btn {
+  background: none;
+  border: 1px solid rgba(12, 42, 99, 0.3);
+  border-radius: 16px;
+  padding: 4px 10px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  color: white;
+}
+
+
 /* =========================== TOP BLUE STRIP =========================== */
 .header-top {
   background: #112b7a;

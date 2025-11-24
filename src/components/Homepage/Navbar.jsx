@@ -1,33 +1,87 @@
 // src/components/Homepage/Navbar.jsx
-import React from "react";
+import React, { useState } from "react";
 import "../../Styles/Homepage/navbar.css";
 
-const Navbar = () => {
+const Navbar = ({ lang }) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleMenu = () => setIsOpen((prev) => !prev);
+  const closeMenu = () => setIsOpen(false);
+
+  const links = [
+    { href: "#about", kn: "ನಮ್ಮ ಬಗ್ಗೆ", en: "About Us" },
+    { href: "#projects", kn: "ಯೋಜನೆಗಳು", en: "Projects" },
+    { href: "#tenders", kn: "ಟೆಂಡರ್‌ಗಳು", en: "Tenders" },
+    { href: "#downloads", kn: "ಡೌನ್‌ಲೋಡ್‌ಗಳು", en: "Downloads" },
+    { href: "#media", kn: "ಮಾಧ್ಯಮ", en: "Media" },
+    { href: "#rti", kn: "ಮಾಹಿತಿ ಹಕ್ಕು ವಿಭಾಗ", en: "RTI Dashboard" },
+    { href: "#contact", kn: "ಸಂಪರ್ಕ ಸಂಖ್ಯೆಗಳು", en: "Contact Numbers" },
+  ];
+
   return (
-    <nav className="main-nav">
-      <div className="main-nav__pill">
-        {/* left empty column to balance the button */}
-        <div className="main-nav__ghost" />
+    <>
+      {/* Dark overlay for mobile when menu open */}
+      <div
+        className={`main-nav__overlay ${
+          isOpen ? "main-nav__overlay--visible" : ""
+        }`}
+        onClick={closeMenu}
+      />
 
-        {/* centered menu items */}
-        <ul className="main-nav__list">
-          <li><a href="#about" className="main-nav__link active">ನಮ್ಮ ಬಗ್ಗೆ</a></li>
-          <li><a href="#projects" className="main-nav__link">ಯೋಜನೆಗಳು</a></li>
-          <li><a href="#tenders" className="main-nav__link">ಟೆಂಡರ್‌ಗಳು</a></li>
-          <li><a href="#downloads" className="main-nav__link">ಡೌನ್‌ಲೋಡ್‌ಗಳು</a></li>
-          <li><a href="#media" className="main-nav__link">ಮಾಧ್ಯಮ</a></li>
-          <li><a href="#rti" className="main-nav__link">ಮಾಹಿತಿ ಹಕ್ಕು ವಿಭಾಗ</a></li>
-          <li><a href="#contact" className="main-nav__link">ಸಂಪರ್ಕ ಸಂಖ್ಯೆಗಳು</a></li>
-        </ul>
+      <nav className="main-nav">
+        <div className="main-nav__pill">
+          {/* ghost column for grid layout on desktop */}
+          <div className="main-nav__ghost" />
 
-        {/* blue round 3-lines button on the right inside the pill */}
-        <button className="main-nav__menu-btn" aria-label="Open menu">
-          <span />
-          <span />
-          <span />
-        </button>
-      </div>
-    </nav>
+          {/* DESKTOP / TABLET MENU */}
+          <ul className="main-nav__list main-nav__list--desktop">
+            {links.map((link, idx) => (
+              <li key={idx}>
+                <a
+                  href={link.href}
+                  className="main-nav__link"
+                  onClick={closeMenu}
+                >
+                  {lang === "kn" ? link.kn : link.en}
+                </a>
+              </li>
+            ))}
+          </ul>
+
+          {/* 3-lines round menu button (visible on all, mainly used on mobile) */}
+          <button
+            className="main-nav__menu-btn"
+            aria-label="Open menu"
+            onClick={toggleMenu}
+          >
+            <span />
+            <span />
+            <span />
+          </button>
+        </div>
+
+        {/* MOBILE SIDE MENU */}
+        <div
+          className={`main-nav__mobile-menu ${
+            isOpen ? "main-nav__mobile-menu--open" : ""
+          }`}
+        >
+          <ul className="main-nav__list main-nav__list--mobile">
+            {links.map((link, idx) => (
+              <li key={idx}>
+                <a
+                  href={link.href}
+                  className="main-nav__link"
+                  onClick={closeMenu}
+                >
+                  {lang === "kn" ? link.kn : link.en}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </nav>
+    </>
   );
 };
 

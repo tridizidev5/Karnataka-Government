@@ -1,6 +1,7 @@
 // src/components/Homepage/Homepage.jsx
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "../../Styles/Homepage/homepage.css";
+
 import Header from "./Header";
 import HeroSection from "./HeroSection";
 import MdSection from "./MdSection";
@@ -12,43 +13,53 @@ import FooterSection from "./FooterSection";
 import AnimatedSection from "../common/AnimatedSection";
 
 const Homepage = () => {
+  // 🔹 Initialize from localStorage (if available), else default to Kannada
+  const [lang, setLang] = useState(() => {
+    if (typeof window !== "undefined") {
+      const stored = localStorage.getItem("siteLang");
+      return stored === "en" || stored === "kn" ? stored : "kn";
+    }
+    return "kn";
+  });
+
+  // 🔹 Whenever language changes, save it so refresh keeps same value
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      localStorage.setItem("siteLang", lang);
+    }
+  }, [lang]);
+
   return (
     <div className="homepage">
-      <Header />
+      <Header lang={lang} setLang={setLang} />
 
       <main>
-        {/* Hero: fade up */}
         <AnimatedSection variant="up">
-          <HeroSection />
+          <HeroSection lang={lang} />
         </AnimatedSection>
 
-        {/* MD Desk: slide from left */}
         <AnimatedSection variant="left" delay={0.1}>
-          <MdSection />
+          <MdSection lang={lang} />
         </AnimatedSection>
 
-        {/* Wings: slide from right */}
         <AnimatedSection variant="right" delay={0.15}>
-          <WingsSection />
+          <WingsSection lang={lang} />
         </AnimatedSection>
 
-        {/* Notifications: fade up */}
         <AnimatedSection variant="up" delay={0.2}>
-          <NotificationsSection />
+          <NotificationsSection lang={lang} />
         </AnimatedSection>
 
-        {/* Highlights: zoom in */}
         <AnimatedSection variant="zoom" delay={0.25}>
-          <HighlightsSection />
+          <HighlightsSection lang={lang} />
         </AnimatedSection>
 
-        {/* Gallery: fade up */}
         <AnimatedSection variant="up" delay={0.3}>
-          <GallerySection />
+          <GallerySection lang={lang} />
         </AnimatedSection>
       </main>
 
-      <FooterSection />
+      <FooterSection lang={lang} />
     </div>
   );
 };

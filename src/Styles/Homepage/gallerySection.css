@@ -176,7 +176,9 @@
   font-size: 30px;
   line-height: 1;
   color: #0b368e;
+  text-align: left;
 }
+
 
 .gallery__tabs {
   display: flex;
@@ -210,7 +212,7 @@
 }
 
 .gallery__grid {
-  max-width: 1013px;
+  max-width: auto;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
